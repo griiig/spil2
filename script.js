@@ -1,36 +1,43 @@
 function setup(){
     has = 5;
 
-    rb = 15;
-    rh = 120;
-    rx = 100;
-    ry = (windowHeight/2)-(rh/2);
+    rb = windowWidth/80;
+    rh = windowHeight/5.5;
 
-    rb1 = 15;
-    rh1 = 120;
-    rx1 = windowWidth-100-rb;
-    ry1 = windowHeight/2-(rh1/2);
+    ry = (windowHeight/2)-(rh/2);
+    ry1 = (windowHeight/2)-(rh/2);
+
+    size = 50;
+
+    score1 = 1;
+    score2 = 0;
 }
 
 function draw(){
     createCanvas(windowWidth,windowHeight);
-    background("green");
+    background(0,125,18);
     strokeWeight(3);
     stroke(255);
-    line(windowWidth/2-(3/2),0,windowWidth/2,windowHeight);
-    rect(rx, ry, rb, rh);
-    rect(rx1, ry1, rb1, rh1);
+    line(windowWidth/2-(3/2),0,windowWidth/2-(3/2),windowHeight);
+    rect(50, ry, windowWidth/80, windowHeight/5.5);
+    rect(windowWidth-rb-50, ry1, windowWidth/80, windowHeight/5.5);
+
+    size = windowHeight/10;
+    textSize(size);
+    fill(255);
+    text(score1, (windowWidth-3)/4-(size/2), size);
+    text(score2, (windowWidth-3)/4*3-(size/2), size);
 
     if (keyIsDown (87) && ry > 0+5){
         ry-=has;
     }
-    if (keyIsDown (83) && ry+rh < windowHeight-5){
+    if (keyIsDown (83) && ry+windowHeight/5.5 < windowHeight-5){
         ry+=has;
     }
     if (keyIsDown (79) && ry1 > 0+5){
         ry1-=has;
     }
-    if (keyIsDown (76) && ry1+rh1 < windowHeight-5){
+    if (keyIsDown (76) && ry1+windowHeight/5.5 < windowHeight-5){
         ry1+=has;
     }
 }
@@ -40,3 +47,11 @@ function keyPressed(){
 }
 
 
+function windowResized() { 
+    if (ry+rh+5 >= windowHeight){
+        ry = windowHeight-rh-5;
+    }
+    if (ry1+rh+5 >= windowHeight){
+        ry1 = windowHeight-rh-5;
+    }
+}
