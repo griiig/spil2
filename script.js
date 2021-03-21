@@ -9,8 +9,11 @@ function setup(){
 
     size = 50;
 
-    score1 = 1;
+    score1 = 0;
     score2 = 0;
+
+    ex = windowWidth /2;
+    ey = windowHeight /2;
 }
 
 function draw(){
@@ -21,6 +24,8 @@ function draw(){
     line(windowWidth/2-(3/2),0,windowWidth/2-(3/2),windowHeight);
     rect(50, ry, windowWidth/80, windowHeight/5.5);
     rect(windowWidth-rb-50, ry1, windowWidth/80, windowHeight/5.5);
+
+    ellipse(ex, ey, windowHeight/10, windowHeight/10);
 
     size = windowHeight/10;
     textSize(size);
@@ -53,5 +58,11 @@ function windowResized() {
     }
     if (ry1+rh+5 >= windowHeight){
         ry1 = windowHeight-rh-5;
+    }
+    if (ey+windowHeight/10 >= windowHeight){
+        ey = windowHeight-windowHeight/10;
+    }
+    if (ex+windowWidth/10 >= windowWidth){
+        ex = windowWidth-windowWidth/10;
     }
 }
