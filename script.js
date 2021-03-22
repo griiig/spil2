@@ -8,12 +8,15 @@ function setup(){
     ry1 = (windowHeight/2)-(rh/2);
 
     size = 50;
+    speed = 5;
 
     score1 = 0;
     score2 = 0;
 
     ex = windowWidth /2;
     ey = windowHeight /2;
+
+
 }
 
 function draw(){
@@ -25,7 +28,7 @@ function draw(){
     rect(50, ry, windowWidth/80, windowHeight/5.5);
     rect(windowWidth-rb-50, ry1, windowWidth/80, windowHeight/5.5);
 
-    ellipse(ex, ey, windowHeight/10, windowHeight/10);
+    lavBold(ex,ey, windowHeight/10, windowHeight/10);
 
     size = windowHeight/10;
     textSize(size);
@@ -65,4 +68,14 @@ function windowResized() {
     if (ex+windowWidth/10 >= windowWidth){
         ex = windowWidth-windowWidth/10;
     }
+}
+
+function lavBold(a,b,c,d){
+    ellipse(a, b, c, d);
+
+if (a >= windowWidth || a <= 0){
+    speed = -speed;
+}
+    ex += speed;
+
 }
