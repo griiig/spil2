@@ -8,15 +8,18 @@ function setup(){
     ry1 = (windowHeight/2)-(rh/2);
 
     size = 50;
-    speed = 5;
+    speed = 10;
 
     score1 = 0;
     score2 = 0;
 
     ex = windowWidth /2;
     ey = windowHeight /2;
+}
 
-
+function preload(){
+    pongv_sound = loadSound('sounds/pong_v.mp3');
+    pongh_sound = loadSound('sounds/pong_h.mp3');
 }
 
 function draw(){
@@ -28,7 +31,7 @@ function draw(){
     rect(50, ry, windowWidth/80, windowHeight/5.5);
     rect(windowWidth-rb-50, ry1, windowWidth/80, windowHeight/5.5);
 
-    lavBold(ex,ey, windowHeight/10, windowHeight/10);
+    lavBold(ex,ey, windowHeight/10);
 
     size = windowHeight/10;
     textSize(size);
@@ -50,9 +53,11 @@ function draw(){
     }
 }
 
+/*
 function keyPressed(){
     console.log(keyCode);
 }
+*/
 
 
 function windowResized() { 
@@ -70,12 +75,35 @@ function windowResized() {
     }
 }
 
-function lavBold(a,b,c,d){
-    ellipse(a, b, c, d);
+function lavBold(a,b,c){
+    ellipse(a, b, c, c);
 
-if (a >= windowWidth || a <= 0){
-    speed = -speed;
-}
+    if (a >= windowWidth){
+        score1+=1;
+        ex = windowWidth /2;
+        ey = windowHeight /2;
+        speed= -speed;
+    }
+
+    if (a <= 0){
+        score2+=1;
+        ex = windowWidth /2;
+        ey = windowHeight /2;
+        speed = -speed;
+    }
+
+    if (a+ c/2 >= windowWidth-rb-50){
+        if (b+c/2 >= ry1 && b-c/2 <= ry1+windowHeight/5.5){
+            speed = -speed;
+            pongh_sound.play(0,1,1,0.3,0.2);
+        }
+    }
+    if (a-c/2 <= 50+windowWidth/80){
+        if (b+c/2 >= ry && b-c/2 <= ry+windowHeight/5.5){
+            speed = -speed;
+            pongv_sound.play(0,1,1,0.3,0.2);
+        }
+    }
+
     ex += speed;
-
 }
