@@ -1,3 +1,4 @@
+// I setup defineres bredde og højde af canvas samt hastighed og score for første gang; disse opdateres løbende
 function setup(){
     has = 10;
 
@@ -18,11 +19,14 @@ function setup(){
     ey = windowHeight /2;
 }
 
+// Lyde preloades så de er klar til at afspille
 function preload(){
     pongv_sound = loadSound('sounds/pong_v.mp3');
     pongh_sound = loadSound('sounds/pong_h.mp3');
 }
 
+// Draw funktionen opdateres hele tiden, og det er i den at canvas, bold, og de to rektangler tegnes
+// Nederst i draw bliver der chekket om tast "W", "S", "O" eller "L"m er trykket, og rykker på rektanglerne
 function draw(){
     createCanvas(windowWidth,windowHeight);
     background(0,125,18);
@@ -60,7 +64,7 @@ function keyPressed(){
 }
 */
 
-
+// Denne funktion ændrer størrelserne når vinduet gøres mindre eller større
 function windowResized() { 
     if (ry+rh+5 >= windowHeight){
         ry = windowHeight-rh-5;
@@ -76,6 +80,9 @@ function windowResized() {
     }
 }
 
+// funktionen lavBold laver en bold og får den til at skifte retning når et rektangel rammes eller den rammer nederste eller øverste side på vinduet
+// Hvis bolden flyver ud af højre eller venstre side, får den anden spiller et point, og bolden flyttes tilbage til midten af skærmen med den modsatte hastighed
+// Der afspilles en lyd når bold rammer rektangel
 function lavBold(a,b,c){
     ellipse(a, b, c, c);
 
@@ -114,6 +121,7 @@ function lavBold(a,b,c){
         }
     }
 
+    //Bolden bevæges
     ex += speed;
     ey += yspeed;
 }
