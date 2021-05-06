@@ -36,7 +36,10 @@ function draw(){
     rect(50, ry, windowWidth/80, windowHeight/5.5);
     rect(windowWidth-rb-50, ry1, windowWidth/80, windowHeight/5.5);
 
-    lavBold(ex,ey, windowHeight/20);
+    bold = new Bold(ex,ey, windowHeight/20);
+    bold.lavBold();
+    bold.undersogPosition();
+    bold.bevaegBold();
 
     size = windowHeight/10;
     textSize(size);
@@ -80,48 +83,59 @@ function windowResized() {
     }
 }
 
-// funktionen lavBold laver en bold og får den til at skifte retning når et rektangel rammes eller den rammer nederste eller øverste side på vinduet
+// Metoden lavBold tegner en ellipse/bold
+// Metoden undersogPosition laver en bold og får den til at skifte retning når et rektangel rammes eller den rammer nederste eller øverste side på vinduet
 // Hvis bolden flyver ud af højre eller venstre side, får den anden spiller et point, og bolden flyttes tilbage til midten af skærmen med den modsatte hastighed
 // Der afspilles en lyd når bold rammer rektangel
-function lavBold(a,b,c){
-    ellipse(a, b, c, c);
+// bevaegBold sørger for at bolden bevæger sig med den rigtige hastighed
 
-    if (b >= windowHeight){
-        yspeed= -yspeed;
+class Bold{
+    constructor(a,b,c){
+        this.a = a;
+        this.b = b;
+        this.c = c;
     }
 
-    if (b <= 0){
-        yspeed= -yspeed;
+    lavBold(){
+        ellipse(this.a, this.b, this.c, this.c);
     }
 
-    if (a >= windowWidth){
-        score1+=1;
-        ex = windowWidth /2;
-        ey = windowHeight /2;
-        speed= -speed;
-    }
-
-    if (a <= 0){
-        score2+=1;
-        ex = windowWidth /2;
-        ey = windowHeight /2;
-        speed = -speed;
-    }
-
-    if (a+ c/2 >= windowWidth-rb-50){
-        if (b+c/2 >= ry1 && b-c/2 <= ry1+windowHeight/5.5){
+    undersogPosition(){
+        if (this.b >= windowHeight){
+            yspeed= -yspeed;
+        }
+        if (this.b <= 0){
+            yspeed= -yspeed;
+        }
+        if (this.a >= windowWidth){
+            score1+=1;
+            ex = windowWidth /2;
+            ey = windowHeight /2;
+            speed= -speed;
+        }
+        if (this.a <= 0){
+            score2+=1;
+            ex = windowWidth /2;
+            ey = windowHeight /2;
             speed = -speed;
-            pongh_sound.play(0,1,1,0.3,0.2);
+        }
+        if (this.a+ this.c/2 >= windowWidth-rb-50){
+            if (this.b+this.c/2 >= ry1 && this.b-this.c/2 <= ry1+windowHeight/5.5){
+                speed = -speed;
+                pongh_sound.play(0,1,1,0.3,0.2);
+            }
+        }
+        if (this.a-this.c/2 <= 50+windowWidth/80){
+            if (this.b+this.c/2 >= ry && this.b-this.c/2 <= ry+windowHeight/5.5){
+                speed = -speed;
+                pongv_sound.play(0,1,1,0.3,0.2);
+            }
         }
     }
-    if (a-c/2 <= 50+windowWidth/80){
-        if (b+c/2 >= ry && b-c/2 <= ry+windowHeight/5.5){
-            speed = -speed;
-            pongv_sound.play(0,1,1,0.3,0.2);
-        }
-    }
 
-    //Bolden bevæges
-    ex += speed;
-    ey += yspeed;
+    bevaegBold(){
+        ex += speed;
+        ey += yspeed;
+    }
+    
 }
