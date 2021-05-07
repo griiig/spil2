@@ -17,6 +17,10 @@ function setup(){
 
     ex = windowWidth /2;
     ey = windowHeight /2;
+
+    alert('Spiller til venstre - sæt dine fingre på "W" og "S"');
+    alert('Spiller til højre - sæt dine fingre på "O" og "L"');
+
 }
 
 // Lyde preloades så de er klar til at afspille
